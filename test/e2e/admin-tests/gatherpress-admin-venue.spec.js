@@ -1,5 +1,7 @@
-const { test } = require('@playwright/test');
+const { test, request } = require('@playwright/test');
 const { login } = require('../reusable-user-steps/common.js');
+const { resourceUsage } = require('process');
+const { response } = require('express');
 
 test.describe('e2e test for venue through admin side', () => {
 	test.beforeEach(async ({ page }) => {
@@ -37,5 +39,44 @@ test.describe('e2e test for venue through admin side', () => {
 		await page.getByLabel('Toggle block inserter').click();
 		await page.getByRole('option', { name: 'Paragraph' }).click();
 		await page.screenshot({ path: 'new-venue.png' });
+		await page.getByLabel('save draft').click()
+		await page.goBack();
+		
+
 	});
-});
+
+	test.afterEach(async({request})=>{
+		await request.post('/auth',{
+			data:{
+				'username': 'testuser1',
+				'password':'zm86079&volj&!R5maIWEYX4'
+			}
+		});
+		
+		const apiurl = 'https://develop.gatherpress.org/wp-json/wp/v2/posts';
+
+		const url= 'https://develop.gatherpress.org/venue/test-venue/';
+
+			const response = await request.fetch(url,{
+				method: 'get',
+				params:{
+					Title:'Test venue',
+					
+				}
+			});
+			console.log(response);
+			
+			
+			const delresponse = await request.delete(url,{
+				params:{
+					Title:'Test venue',
+					
+				}
+			});
+
+			// console.log(delresponse.status());
+		
+		})
+		
+	})
+
