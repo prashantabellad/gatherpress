@@ -39,42 +39,36 @@ test.describe('e2e test for venue through admin side', () => {
 		await page.getByLabel('Toggle block inserter').click();
 		await page.getByRole('option', { name: 'Paragraph' }).click();
 		await page.screenshot({ path: 'new-venue.png' });
-		await page.getByLabel('save draft').click()
-		await page.goBack();
+		// await page.getByLabel('save draft').click()
+		// await page.goBack();
 		
 
 	});
 
 	test.afterEach(async({request})=>{
-		await request.post('/auth',{
-			data:{
-				'username': 'testuser1',
-				'password':'zm86079&volj&!R5maIWEYX4'
-			}
-		});
+		await request.post('/auth');
 		
-		const apiurl = 'https://develop.gatherpress.org/wp-json/wp/v2/posts';
-
-		const url= 'https://develop.gatherpress.org/venue/test-venue/';
+		const url= 'https://develop.gatherpress.org/wp-json/wp/v2/gp_venue';
 
 			const response = await request.fetch(url,{
 				method: 'get',
 				params:{
-					Title:'Test venue',
+					title: {
+						"rendered": "Test venue"
+					},
 					
 				}
 			});
-			console.log(response);
 			
 			
 			const delresponse = await request.delete(url,{
 				params:{
 					Title:'Test venue',
+					post_type: 'gp_event'
 					
 				}
 			});
 
-			// console.log(delresponse.status());
 		
 		})
 		
