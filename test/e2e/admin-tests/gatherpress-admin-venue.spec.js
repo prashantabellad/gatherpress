@@ -2,6 +2,7 @@ const { test, request } = require('@playwright/test');
 const { login } = require('../reusable-user-steps/common.js');
 const { resourceUsage } = require('process');
 const { response } = require('express');
+const { json } = require('body-parser');
 
 test.describe('e2e test for venue through admin side', () => {
 	test.beforeEach(async ({ page }) => {
@@ -46,32 +47,24 @@ test.describe('e2e test for venue through admin side', () => {
 
 	});
 
-	// test.afterEach(async({request})=>{
-	// 	await request.post('/auth');
+	test.afterEach(async({request})=>{
+		await request.post('/auth');
 		
-	// 	const url= 'https://develop.gatherpress.org/wp-json/wp/v2/gp_venue';
+		const url= 'https://develop.gatherpress.org/wp-json/wp/v2/gp_venue';
 
-	// 		const response = await request.fetch(url,{
-	// 			method: 'get',
-	// 			params:{
-	// 				title: {
-	// 					"rendered": "Test venue"
-	// 				},
+			const response = await request.fetch(url,{
+				method: 'delete',
+				params:{
+					title: 'test venue'
 					
-	// 			}
-	// 		});
+				}
+			});
 			
 		
-	// 		 await request.delete(url,{
-	// 			params:{
-	// 				title: {
-	// 					"rendered": "Test venue"
-	// 				},
-	// 			}
-	// 		});
+			 await request.delete(url+'force=True');
 
 		
-	// 	})
+		})
 		
 	})
 
