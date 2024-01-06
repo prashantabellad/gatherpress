@@ -32,7 +32,7 @@
     },
     {
       "name": "wordpress_logged_in_b7e5d5fb9a7a34304d950ef8f472a2ab",
-      "value": "testuser1%7C1704285436%7CMMGQdFFOjJ5SE4V415HZpP9cSTZYSwEsLnAMwRbfppp%7C0650705d1bf24749b5a3849270755280739e1bc81c117a36209aa05113e413ec",
+      "value": "testuser1%7C1704430500%7CtRTcKYj2sbFJxWRdIhSQuXMuqnK38iGAigBecKCIjHD%7Cb84b887c01ce2aafcd005a1f23be09274ce0fcd3a2285b1e2907a2b46990ba86",
       "domain": "develop.gatherpress.org",
       "path": "/",
       "expires": -1,
@@ -42,10 +42,10 @@
     },
     {
       "name": "wp-settings-time-167",
-      "value": "1704112637",
+      "value": "1704257701",
       "domain": "develop.gatherpress.org",
       "path": "/",
-      "expires": 1735648639.653847,
+      "expires": 1735793702.081823,
       "httpOnly": false,
       "secure": true,
       "sameSite": "Lax"
