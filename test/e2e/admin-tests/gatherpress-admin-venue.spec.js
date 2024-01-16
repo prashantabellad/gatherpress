@@ -37,5 +37,14 @@ test.describe('e2e test for venue through admin side', () => {
 		await page.getByLabel('Toggle block inserter').click();
 		await page.getByRole('option', { name: 'Paragraph' }).click();
 		await page.screenshot({ path: 'new-venue.png' });
+
+		await page
+			.getByRole('button', { name: 'Publish', exact: true })
+			.click();
+		await page
+			.getByLabel('Editor publish')
+			.getByRole('button', { name: 'Publish', exact: true })
+			.click();
+
 	});
 });

@@ -25,5 +25,14 @@ test.describe('As admin login into gatherPress', () => {
 
 		await page.getByLabel('List View').locator('div').nth(1).isVisible();
 		await page.screenshot({ path: 'add-new-event.png' });
+
+		await page
+			.getByRole('button', { name: 'Publish', exact: true })
+			.click();
+		await page
+			.getByLabel('Editor publish')
+			.getByRole('button', { name: 'Publish', exact: true })
+			.click();
+
 	});
 });
