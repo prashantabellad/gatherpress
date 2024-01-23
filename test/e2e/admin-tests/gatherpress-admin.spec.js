@@ -24,19 +24,20 @@ test.describe('As admin login into gatherPress', () => {
 		await page.getByLabel('Document Overview').click();
 
 		await page.getByLabel('List View').locator('div').nth(1).isVisible();
-		await page.getByLabel('Add title').isVisible();
-		await page.getByLabel('Add title').fill('test event');
+		
+		const event_title =await page.getByLabel('Add title').fill('test event');
 		await page.getByLabel('Venue Selector').selectOption('33:online-event');
 
 		await page.screenshot({ path: 'add-new-event.png' });
 
-		await page
-			.getByRole('button', { name: 'Publish', exact: true })
-			.click();
+		await page.getByRole('button', { name: 'Publish', exact: true }).click();
+		
 		await page
 			.getByLabel('Editor publish')
 			.getByRole('button', { name: 'Publish', exact: true })
 			.click();
+
+		await page.getByText({event_title},'is now live.').isVisible({timeout:60000});
 
 	});
 });
