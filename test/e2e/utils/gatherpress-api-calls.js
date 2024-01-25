@@ -29,7 +29,7 @@ const getGatherpressPosts = async ({ request, title }) => {
 			const venue = jsonData.filter((data) =>
 				data.title.rendered.includes(title)
 			);
-			console.log(`venue##### ${JSON.stringify(venue)}`);
+			console.log(`venue##### ${JSON.stringify(response)}`);
 			return venue;
 		} else {
 			console.error(
@@ -43,14 +43,16 @@ const getGatherpressPosts = async ({ request, title }) => {
 	}
 };
 
-const deleteWordpressPost = async (request, postId) => {
-	const url = `https://develop.gatherpress.org/wp-json/wp/v2/posts/${postId}`;
+const deleteWordpressPost = async ({ request, postId }) => {
+	const url = `https://develop.gatherpress.org/wp-json/wp/v2/gp_venue/${postId}`;
 	const headers = {
-		Authorization: `Basic ${base64Credentials(username, appPassword)}`,
+		Authorization: `Basic ${base64Credentials}`,
 	};
 
 	try {
+		console.log(`INSIDE DELETE: ${postId}`);
 		const response = await request.delete(url, { headers });
+		console.log(`DELETE RESP: ${response}`);
 		if (response.ok()) {
 			console.log(`Post with ID ${postId} deleted successfully.`);
 			return true;
@@ -61,7 +63,7 @@ const deleteWordpressPost = async (request, postId) => {
 			return false;
 		}
 	} catch (error) {
-		console.error("Error deleting WordPress post:", error);
+		console.error("###Error deleting WordPress post:", error);
 		return false;
 	}
 };
