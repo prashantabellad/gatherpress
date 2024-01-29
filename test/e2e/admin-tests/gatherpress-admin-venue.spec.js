@@ -7,11 +7,14 @@ test.describe('e2e test for venue through admin side', () => {
 		test.setTimeout(120000);
 		await page.setViewportSize({ width: 1920, height: 720 });
 		await page.waitForLoadState('networkidle');
+		await login({ page, username: 'testuser1' });
+		await page
+		.getByRole('heading', { name: 'Dashboard', level: 1 })
+		.isVisible();
+
 	});
 
 	test('The admin user should redirected to the venue page', async({page})=>{
-
-		await login({ page, username: 'testuser1' });
 
 		await page.getByRole('link', { name: 'Events', exact: true }).click();
 
@@ -23,8 +26,7 @@ test.describe('e2e test for venue through admin side', () => {
 	test('The admin should be able to create a new post for Venue', async ({
 		page,
 	}) => {
-		await login({ page, username: 'testuser1' });
-
+		
 		await page.getByRole('link', { name: 'Events', exact: true }).click();
 
 		await page.getByRole('link', { name: 'Venues' }).click();

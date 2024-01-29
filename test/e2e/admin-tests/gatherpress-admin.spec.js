@@ -13,6 +13,10 @@ test.describe('As admin login into gatherPress', () => {
 	}) => {
 		await login({ page, username: 'testuser1' });
 
+		await page
+		.getByRole('heading', { name: 'Dashboard', level: 1 })
+		.isVisible();
+
 		await page.getByRole('link', { name: 'Events', exact: true }).click();
 		await page.screenshot({ path: 'event-page.png' });
 
